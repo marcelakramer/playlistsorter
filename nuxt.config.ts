@@ -20,4 +20,5 @@ export default defineNuxtConfig({
       },
     },
   },
+  css: ["@/assets/scss/globals.scss"]
 })
