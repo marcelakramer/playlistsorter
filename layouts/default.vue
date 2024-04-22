@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column">
         <div class="bg-primary d-flex justify-end pt-6 pr-16">
-            <v-btn class="bg-primary" flat icon="mdi-palette" @click="toggleTheme"></v-btn>
+            <v-btn class="bg-primary" flat :icon="!theme.global.current.value.dark? 'mdi-white-balance-sunny' : 'mdi-weather-night'" @click="toggleTheme"></v-btn>
         </div>
         <slot />
     </div>
