@@ -2,6 +2,14 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      CLIENT_ID: process.env.CLIENT_ID,
+      CLIENT_SECRET: process.env.CLIENT_SECRET,
+      REDIRECT_URI: process.env.REDIRECT_URI
+    }
+  },
+  ssr: false,
   build: {
     transpile: ['vuetify'],
   },
@@ -15,6 +23,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt'
   ],
+  imports: {
+    dirs: [
+      "composables/**"
+    ]
+  },
   vite: {
     vue: {
       template: {
@@ -22,5 +35,8 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["@/assets/scss/globals.scss"]
+  css: ["@/assets/scss/globals.scss"],
+  pinia: {
+    storesDirs: ['./stores/**']
+  }
 })
