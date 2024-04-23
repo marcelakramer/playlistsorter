@@ -68,5 +68,18 @@ const playlists = ref([
         image: "../path/to/image.png"
     }
 ])
+  
+const spotifyAPIStore = useSpotifyAPIStore();
+const refreshTokenResponse = ref();
+  
+onMounted(async () => {
+  if (new Date(spotifyAPIStore.expiresAt) < new Date()){
+      refreshTokenResponse.value  = await getAccessTokenByRefreshToken(spotifyAPIStore.refreshToken)
+      if (refreshTokenResponse.value !== undefined) {
+        spotifyAPIStore.setAccessToken(refreshTokenResponse.value.access_token);
+        spotifyAPIStore.setExpiresAt(getExpiresAt(refreshTokenResponse.value.expires_in));
+      }
+    }
+})
 
 </script>
