@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <v-app>
+    <v-app class="bg-primary">
       <NuxtPage />
     </v-app>
   </NuxtLayout>
