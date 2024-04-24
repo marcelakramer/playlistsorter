@@ -32,7 +32,7 @@
       width="auto"
     >
       <v-card
-        class="bg-primary py-8 px-16 ma-auto w-50"
+        class="bg-primary py-8 px-16 ma-auto"
       >
         <div class="d-flex flex-column align-center">
             <p class="font-sub-title font-weight-bold">Are you sure?</p>
