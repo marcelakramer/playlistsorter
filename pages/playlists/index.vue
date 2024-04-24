@@ -5,8 +5,9 @@
         </v-btn>
         <p class="font-small font-italic pt-8">*The playlist must be on your profile.</p>
         <p class="font-small font-italic">*The playlist can’t have more than 100 tracks for the sorting to work properly.</p>
+        <p class="font-small font-italic">*Don't reload or close the browser while the playlist is being sorted.</p>
         <v-progress-circular v-if=isLoading class="mt-16" indeterminate :size="70"></v-progress-circular>
-        <div class="pt-16 pb-16 w-50">
+        <div class="pt-8 pb-16 w-50">
             <div v-for="playlist of playlists" :key="playlist.id" class="d-flex flex-column pt-8">
             <v-card height="96" class="bg-secondary d-flex align-center pa-4">
                 <img height="64" width="64" :src="playlist.image">
@@ -14,9 +15,12 @@
                     <div>
                         <p class="font-normal font-weight-bold pl-8">{{ playlist.name }} <span class="ml-2 font-smaller">({{ playlist.number_of_tracks }} tracks)</span></p>
                     </div>
-                    <v-btn v-if="playlist.number_of_tracks <= 100" flat class="bg-secondary" height="32" width="32" @click="dialog = true">
-                        <v-icon class="text-h4">mdi-sort</v-icon>
-                    </v-btn>
+                    <div>
+                        <v-progress-circular v-if="selectedPlaylistId === playlist.id && isSorting" indeterminate :size="25"></v-progress-circular>
+                        <v-btn v-if="playlist.number_of_tracks <= 100" flat class="bg-secondary" height="32" width="32" @click="selectedPlaylistId = playlist.id; dialog = true">
+                            <v-icon class="text-h4">mdi-sort</v-icon>
+                        </v-btn>
+                    </div>
                 </div>
             </v-card>
         </div>
@@ -46,7 +50,7 @@
             <v-btn
                 class="text-none bg-fontprimary mx-1 font-weight-bold"
                 text="Yes"
-                @click="dialog = false"
+                @click="updateSelectedPlaylistOrder(selectedPlaylistId); dialog = false"
             ></v-btn>
           </div>
       </v-card>
@@ -59,7 +63,8 @@
 const dialog = ref(false);
 const isLoading = ref(false);
 const playlists = ref();
-  
+const selectedPlaylistId = ref('');
+const isSorting = ref(false);
 const spotifyAPIStore = useSpotifyAPIStore();
 const refreshTokenResponse = ref();
 const playlistsResponse = ref();
@@ -89,6 +94,13 @@ const getPlaylists = async () => {
                     )
     );
     isLoading.value = false;
+}
+
+const updateSelectedPlaylistOrder = async (playlistId: string) => {
+    isSorting.value = true;
+    await updatePlaylistOrder(spotifyAPIStore.accessToken, playlistId);
+    selectedPlaylistId.value = '';
+    isSorting.value = false;
 }
 
 </script>
