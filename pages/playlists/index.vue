@@ -24,10 +24,10 @@
       width="auto"
     >
       <v-card
-        class="bg-primary py-4 px-16 ma-auto w-50"
+        class="bg-primary py-8 px-16 ma-auto w-50"
       >
         <div class="d-flex flex-column align-center">
-            <p class="font-normal font-weight-bold">Are you sure?</p>
+            <p class="font-sub-title font-weight-bold">Are you sure?</p>
             <div class="font-small pt-6">
                 <p>This action is <span class="font-weight-bold">irreversible</span>.</p>
                 <p class="pt-3"> Once you have done it, the playlist cannot be reversed to its original order automatically.</p>

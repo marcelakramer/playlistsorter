@@ -1,4 +1,9 @@
 @import './variables.scss';
+@import 'typeface-open-sans';
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
 
 .font {
     &-big-title {

@@ -2,15 +2,10 @@ import '@mdi/font/css/materialdesignicons.css'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import 'typeface-open-sans'
+
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
-    defaults: {
-        VApp: {
-          style: 'font-family: "Open Sans", sans-serif'
-        }
-    },
     theme: {
         defaultTheme: 'dark',
         themes: {
