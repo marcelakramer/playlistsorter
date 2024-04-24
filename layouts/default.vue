@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-column">
-        <div class="bg-primary d-flex justify-end pt-6 pr-16">
+        <div class="bg-primary d-flex justify-end pt-6 pr-8">
             <v-btn class="bg-primary" flat :icon="!theme.global.current.value.dark? 'mdi-white-balance-sunny' : 'mdi-weather-night'" @click="toggleTheme"></v-btn>
         </div>
         <slot />

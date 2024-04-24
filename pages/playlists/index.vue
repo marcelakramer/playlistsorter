@@ -1,15 +1,16 @@
 <template>
-    <div class="bg-primary d-flex flex-column align-center pt-16">
+    <div class="bg-primary d-flex flex-column align-center text-center pt-16 px-8">
         <v-btn flat class="bg-primary" height="64" width="64" @click="getPlaylists()">
             <v-icon class="text-h2">mdi-autorenew</v-icon>
         </v-btn>
-        <p class="font-small font-italic pt-8">*The playlist must be on your profile.</p>
+        <p class="font-small font-italic pt-8">*You must be the owner of the playlist.</p>
+        <p class="font-small font-italic">*The playlist must be on your profile.</p>
         <p class="font-small font-italic">*The playlist can’t have more than 100 tracks for the sorting to work properly.</p>
         <p class="font-small font-italic">*Don't reload or close the browser while the playlist is being sorted.</p>
         <v-progress-circular v-if=isLoading class="mt-16" indeterminate :size="70"></v-progress-circular>
-        <div class="pt-8 pb-16 w-50">
-            <div v-for="playlist of playlists" :key="playlist.id" class="d-flex flex-column pt-8">
-            <v-card height="96" class="bg-secondary d-flex align-center pa-4">
+        <div class="pt-8 pb-16">
+            <div v-for="playlist of playlists" :key="playlist.id" class="d-flex justify-center align-center ma-auto flex-wrap pt-8">
+            <v-card height="auto" class="bg-secondary d-flex align-center w-100 pa-4">
                 <img height="64" width="64" :src="playlist.image">
                 <div class="d-flex justify-space-between w-100">
                     <div>
@@ -17,7 +18,7 @@
                     </div>
                     <div>
                         <v-progress-circular v-if="selectedPlaylistId === playlist.id && isSorting" indeterminate :size="25"></v-progress-circular>
-                        <v-btn v-if="playlist.number_of_tracks <= 100" flat class="bg-secondary" height="32" width="32" @click="selectedPlaylistId = playlist.id; dialog = true">
+                        <v-btn flat class="bg-secondary pa-2" height="32" width="32" @click="selectedPlaylistId = playlist.id; dialog = true">
                             <v-icon class="text-h4">mdi-sort</v-icon>
                         </v-btn>
                     </div>
