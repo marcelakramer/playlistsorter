@@ -21,6 +21,11 @@ export const useSpotifyAPIStore = defineStore("spotifyAPI", {
             this.expiresAt = newExpiresAt;
         }
     },
+    getters: {
+        isAuhorized(): boolean {
+            return this.auth;
+        }
+    },
     persist: {
         storage: persistedState.localStorage
     }
