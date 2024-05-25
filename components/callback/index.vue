@@ -23,6 +23,8 @@ onMounted(async () => {
             spotifyAPIStore.setRefreshToken(accessTokenResponse.value.refresh_token);
             spotifyAPIStore.setExpiresAt(getExpiresAt(accessTokenResponse.value.expires_in));
             spotifyAPIStore.changeAuth(true);
+        } else {
+            spotifyAPIStore.changeAuth(false);
         }
     }
     navigateTo("/playlists");

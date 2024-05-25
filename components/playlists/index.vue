@@ -3,7 +3,6 @@
         <v-btn flat class="bg-primary" height="64" width="64" @click="getPlaylists()">
             <v-icon class="text-h2">mdi-autorenew</v-icon>
         </v-btn>
-        <p class="font-small font-italic pt-8">*You must be the owner of the playlist.</p>
         <p class="font-small font-italic">*The playlist must be on your profile.</p>
         <p class="font-small font-italic">*The playlist can’t have more than 100 tracks for the sorting to work
             properly.</p>
