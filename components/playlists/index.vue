@@ -38,13 +38,12 @@
                     <p class="font-sub-title font-weight-bold">Are you sure?</p>
                     <div class="font-small pt-6">
                         <p>This action is <span class="font-weight-bold">irreversible</span>.</p>
-                        <p class="pt-3"> Once you have done it, the playlist cannot be reversed to its playlist order
+                        <p class="pt-3"> Once you have done it, the playlist cannot be reversed to its original order
                             automatically.</p>
                     </div>
                 </div>
                 <div class="d-flex justify-center pt-6">
-                    <v-btn class="text-none bg-primary mx-1 font-weight-bold" border="fontprimary md" text="No"
-                        @click="dialog = false"></v-btn>
+                    <v-btn class="text-none bg-primary mx-1 font-weight-bold" text="No" @click="dialog = false"></v-btn>
                     <v-btn class="text-none bg-fontprimary mx-1 font-weight-bold" text="Yes"
                         @click="updateSelectedPlaylistOrder(selectedPlaylistId); dialog = false"></v-btn>
                 </div>
@@ -67,7 +66,7 @@ const playlistsResponse = ref();
 onMounted(async () => {
     if (new Date(spotifyAPIStore.expiresAt) < new Date()) {
         refreshTokenResponse.value = await getAccessTokenByRefreshToken(spotifyAPIStore.refreshToken)
-        if (refreshTokenResponse.value !== undefined) {
+        if (refreshTokenResponse.value) {
             spotifyAPIStore.setAccessToken(refreshTokenResponse.value.access_token);
             spotifyAPIStore.setExpiresAt(getExpiresAt(refreshTokenResponse.value.expires_in));
         }
@@ -79,15 +78,17 @@ const getPlaylists = async () => {
     playlists.value = [];
     isLoading.value = true;
     playlistsResponse.value = await getUserPlaylists(spotifyAPIStore.accessToken);
-    playlists.value = playlistsResponse.value.items.map(
-        (playlist: { id: string; name: string; tracks: { total: number; }; images: { url: string; }[]; }) => ({
-            id: playlist.id,
-            name: playlist.name,
-            number_of_tracks: playlist.tracks.total,
-            image: playlist.images[0].url
-        }
-        )
-    );
+    if (playlistsResponse.value) {
+        playlists.value = playlistsResponse.value.items.map(
+            (playlist: { id: string; name: string; tracks: { total: number; }; images: { url: string; }[]; }) => ({
+                id: playlist.id,
+                name: playlist.name,
+                number_of_tracks: playlist.tracks.total,
+                image: playlist.images[0].url
+            }
+            )
+        );
+    }
     isLoading.value = false;
 }
 

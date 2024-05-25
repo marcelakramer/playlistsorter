@@ -2,21 +2,26 @@ import type { Track } from "~/interfaces/spotifyAPI/track";
 import type { FilteredTrack } from "~/interfaces/spotifyAPI/filteredTrack";
 
 export const updatePlaylistOrder = async (accessToken: string, playlistId: string) => {
-    const tracksPromise = getTracks(accessToken, playlistId);
-    const tracks = await tracksPromise;
-    const filteredTracks = transformTracks(tracks.items as { track: Track }[]);
-    let filteredTracksOriginalOrder = [...filteredTracks];
-    const tracksByArtist = groupTracksByArtist(filteredTracks);
-    const sortedArtists = sortArtists(Object.keys(tracksByArtist));
-    const sortedTracks = sortTracks(tracksByArtist, sortedArtists);
-    const reverseSortedTracks = [...sortedTracks].reverse()
+    const nuxtApp = useNuxtApp();
+    try {
+        const tracksPromise = getTracks(accessToken, playlistId);
+        const tracks = await tracksPromise;
+        const filteredTracks = transformTracks(tracks.items as { track: Track }[]);
+        let filteredTracksOriginalOrder = [...filteredTracks];
+        const tracksByArtist = groupTracksByArtist(filteredTracks);
+        const sortedArtists = sortArtists(Object.keys(tracksByArtist));
+        const sortedTracks = sortTracks(tracksByArtist, sortedArtists);
+        const reverseSortedTracks = [...sortedTracks].reverse();
 
-    for (const track of reverseSortedTracks) {
-        const rangeStart = filteredTracksOriginalOrder.indexOf(track);
-        const insertBefore = 0;
-        const rangeLength = 1;
-        await updateTrackPositionInPlaylist(accessToken, playlistId, rangeStart, insertBefore, rangeLength);
-        filteredTracksOriginalOrder = updateFilteredTracksOriginalOrder(filteredTracksOriginalOrder, rangeStart);
+        for (const track of reverseSortedTracks) {
+            const rangeStart = filteredTracksOriginalOrder.indexOf(track);
+            const insertBefore = 0;
+            const rangeLength = 1;
+            await updateTrackPositionInPlaylist(accessToken, playlistId, rangeStart, insertBefore, rangeLength);
+            filteredTracksOriginalOrder = updateFilteredTracksOriginalOrder(filteredTracksOriginalOrder, rangeStart);
+        }
+    } catch {
+        nuxtApp.callHook("app:error", createError("Could not update playlist's order."));
     }
 };
 

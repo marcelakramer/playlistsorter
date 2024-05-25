@@ -18,7 +18,7 @@ onMounted(async () => {
     code.value = route.query.code;
     if (code.value !== undefined) {
         accessTokenResponse.value = await getAccessToken(code.value);
-        if (accessTokenResponse.value !== undefined) {
+        if (accessTokenResponse.value) {
             spotifyAPIStore.setAccessToken(accessTokenResponse.value.access_token);
             spotifyAPIStore.setRefreshToken(accessTokenResponse.value.refresh_token);
             spotifyAPIStore.setExpiresAt(getExpiresAt(accessTokenResponse.value.expires_in));

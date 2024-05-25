@@ -1,4 +1,5 @@
 export const authorize = async () => {
+  const nuxtApp = useNuxtApp();
   const config = useRuntimeConfig();
   const state = generateRandomString(16);
   const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
@@ -10,8 +11,11 @@ export const authorize = async () => {
     redirect_uri: config.public.REDIRECT_URI,
     state: state
   });
-
-  await navigateTo(`https://accounts.spotify.com/authorize?${queryParams.toString()}`, {
-  external: true
-  })
+  try {
+    await navigateTo(`https://accounts.spotify.com/authorize?${queryParams.toString()}`, {
+      external: true
+    })
+  } catch {
+    nuxtApp.callHook("app:error", createError("Could not authorize in Spotify API."));
+  }
 }
