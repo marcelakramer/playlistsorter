@@ -1,32 +1,32 @@
 export const useSpotifyAPIStore = defineStore("spotifyAPI", {
-    state: () => {
-        return {
-            auth: false,
-            accessToken: '',
-            refreshToken: '',
-            expiresAt: ''
-        }
+  state: () => {
+    return {
+      auth: false,
+      accessToken: "",
+      refreshToken: "",
+      expiresAt: "",
+    };
+  },
+  actions: {
+    changeAuth(value: boolean) {
+      this.auth = value;
     },
-    actions: {
-        changeAuth(value: boolean) {
-            this.auth = value;
-        },
-        setAccessToken(newAccessToken: string) {
-            this.accessToken = newAccessToken;
-        },
-        setRefreshToken(newRefreshToken: string) {
-            this.refreshToken = newRefreshToken;
-        },
-        setExpiresAt(newExpiresAt: string) {
-            this.expiresAt = newExpiresAt;
-        }
+    setAccessToken(newAccessToken: string) {
+      this.accessToken = newAccessToken;
     },
-    getters: {
-        isAuhorized(): boolean {
-            return this.auth;
-        }
+    setRefreshToken(newRefreshToken: string) {
+      this.refreshToken = newRefreshToken;
     },
-    persist: {
-        storage: persistedState.localStorage
-    }
-})
+    setExpiresAt(newExpiresAt: string) {
+      this.expiresAt = newExpiresAt;
+    },
+  },
+  getters: {
+    isAuhorized(): boolean {
+      return this.auth;
+    },
+  },
+  persist: {
+    storage: persistedState.localStorage,
+  },
+});

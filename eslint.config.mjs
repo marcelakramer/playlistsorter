@@ -12,5 +12,5 @@ export default withNuxt(
     rules: {
       "@typescript-eslint/ban-ts-comment": "off",
     },
-  }
+  },
 );

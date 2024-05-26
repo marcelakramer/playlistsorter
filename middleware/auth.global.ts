@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
-    const spotifyAPIStore = useSpotifyAPIStore();
+  const spotifyAPIStore = useSpotifyAPIStore();
 
-    if (to.path === "/playlists" && !spotifyAPIStore.isAuhorized) {
-        return navigateTo("/");
-    }
-})
+  if (to.path === "/playlists" && !spotifyAPIStore.isAuhorized) {
+    return navigateTo("/");
+  }
+});
