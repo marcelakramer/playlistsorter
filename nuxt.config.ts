@@ -21,7 +21,8 @@ export default defineNuxtConfig({
       })
     },
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt'
+    '@pinia-plugin-persistedstate/nuxt',
+    '@nuxt/eslint'
   ],
   imports: {
     dirs: [
