@@ -14,14 +14,14 @@
                 <v-card height="auto" class="bg-secondary d-flex align-center w-100 pa-4">
                     <img height="64" width="64" :src="playlist.image">
                     <div class="d-flex justify-space-between w-100">
-                        <div class="d-flex align-center">
+                        <div class="d-flex align-center mr-6">
                             <p class="font-normal font-weight-bold pl-8">{{ playlist.name }} <span
-                                    class="ml-2 font-smaller">({{ playlist.number_of_tracks }} tracks)</span></p>
+                                    class="ml-2 font-smaller" style="white-space: nowrap">({{ playlist.number_of_tracks }} tracks)</span></p>
                         </div>
                         <div class="d-flex align-center">
                             <v-progress-circular class="pa-2" v-if="selectedPlaylistId === playlist.id && isSorting"
                                 indeterminate :size="25"></v-progress-circular>
-                            <v-btn flat class="bg-secondary" height="32" width="32"
+                            <v-btn flat class="bg-secondary mx-2 pa-0" min-width="0"
                                 @click="selectedPlaylistId = playlist.id; dialog = true">
                                 <v-icon class="text-h4">mdi-sort</v-icon>
                             </v-btn>
